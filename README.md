@@ -8,7 +8,7 @@ Transcript & slides are below.  Please click this demo video to hear it with sou
 
 #
 
-> Hello everyone and thank you for watching THIS video on my final project which replicates project 4. This has been a great project to toy around with different AWS languages and tools.  
+> *Hello everyone and thank you for watching THIS video on my final project which replicates project 4. This has been a great project to toy around with different AWS languages and tools.*  
 
 ### IAM roles and policy tightening  
 ### How to understand, do, and keep your hair  
@@ -26,7 +26,7 @@ fang —> 5minutetimer —> serverlessproducer —> producer —> producerai —
 
 #
 
-> Now, my infra is working from build to ... 
+> *Now, my infra is working from build to ...* 
 
 ### Working infra  
 
@@ -37,7 +37,7 @@ fang —> 5minutetimer —> serverlessproducer —> producer —> producerai —
 
 #
 
-> ... tear down with monitoring and logging and linting, but I needed to ensure that data is secure in transit and that IAM roles are as tight as possible.  this demo video is about the latter.   I would like to show you how I learned about IAM roles and policies and how to tighten those up so that the bits of my infra are given only permissions needed to do their jobs.  In my architecture ...
+> *... tear down with monitoring and logging and linting, but I needed to ensure that data is secure in transit and that IAM roles are as tight as possible.  this demo video is about the latter.   I would like to show you how I learned about IAM roles and policies and how to tighten those up so that the bits of my infra are given only permissions needed to do their jobs.  In my architecture ...*
 
 ### Working infra
 
@@ -49,7 +49,7 @@ fang —> 5minutetimer —> serverlessproducer —> producer —> producerai —
 
 #
 
-> **transcript for slide 9.4** *... i have 2 lambdas that perform all the actions. so the only permissions i need to give out are to the lambdas.  Here you see the lambda ServerlessProducer gets names from a DynamoDB table and puts those names in an SQS queue and lambda function ProducerAI gets the names from SQS queue and deletes them from SQS queue and then one by one the lambda asks AWS Comprehend to perform some ML on the name and finally sends that result to an S3 bucket.  In this  demo we will focus only on the ServerlessProducer lambda but the method for editing IAM policies and experimenting with tests is the same for the any lamnda.*   
+> *... i have 2 lambdas that perform all the actions. so the only permissions i need to give out are to the lambdas.  Here you see the lambda ServerlessProducer gets names from a DynamoDB table and puts those names in an SQS queue and lambda function ProducerAI gets the names from SQS queue and deletes them from SQS queue and then one by one the lambda asks AWS Comprehend to perform some ML on the name and finally sends that result to an S3 bucket.  In this  demo we will focus only on the ServerlessProducer lambda but the method for editing IAM policies and experimenting with tests is the same for the any lamnda.*   
 
 ### Tighten up IAM
 
@@ -73,7 +73,7 @@ fang —> 5minutetimer —> serverlessproducer —> producer —> producerai —
 
 #
 
-> **transcript for slide 9.5** *I found the best way to see what lambdas need  is to look at lambda code.  here we see this lambda ServerlessProducer needs to scan a DynamoDB table and get the URL for an SQS queue and then send that queue a message.   ….. All that runs fine when the Lambda is given a role that has administrative permissions that are detailed in a policy but the idea is that your infrastructure is always vulnerable to benign abuse by nice people and malicious abuse by people that seek to take advantage of your infrastructure’s open doors.   The best way to find out exactly the permissions that your lambdas need is via the IAM console*   
+> *I found the best way to see what lambdas need  is to look at lambda code.  here we see this lambda ServerlessProducer needs to scan a DynamoDB table and get the URL for an SQS queue and then send that queue a message.   ….. All that runs fine when the Lambda is given a role that has administrative permissions that are detailed in a policy but the idea is that your infrastructure is always vulnerable to benign abuse by nice people and malicious abuse by people that seek to take advantage of your infrastructure’s open doors.   The best way to find out exactly the permissions that your lambdas need is via the IAM console*   
 
 ### ServerlessProducer - IAM - start with code to see permissions needed  
 
@@ -88,7 +88,7 @@ fang —> 5minutetimer —> serverlessproducer —> producer —> producerai —
 
 #
 
-> **transcript for slide 9.6** *As mentioned the Steps include first getting your infra running with Admin policies. which give your lambdas free run of the ship.  Make sure it works.  Then use the IAM console to strip the unneeded permissions away.   So here’s the lambda with a role called LambdaExecutionRole2. That means that when the lambda function Serverless Producer takes any action [pause] it takes on the role of LambdaExecutionRole2.  Lets see what that role can do, and exactly what permissions it needs to do the things that ServerlessProducer needs to do.*    
+> *As mentioned the Steps include first getting your infra running with Admin policies. which give your lambdas free run of the ship.  Make sure it works.  Then use the IAM console to strip the unneeded permissions away.   So here’s the lambda with a role called LambdaExecutionRole2. That means that when the lambda function Serverless Producer takes any action [pause] it takes on the role of LambdaExecutionRole2.  Lets see what that role can do, and exactly what permissions it needs to do the things that ServerlessProducer needs to do.*    
 
 ### ServerlessProducer - LambdaExecutionRole2 role name  
 
@@ -98,7 +98,7 @@ fang —> 5minutetimer —> serverlessproducer —> producer —> producerai —
 
 #
 
-> **transcript for slide 9.7**  *Here we see that LambdaExecutionRole2 has been given a policy or set of permissions called AdministrativeAccess which allows that Role to do anything it wants on any resource it wants.  So if Serverless Producer has role LamndaExecutionRole2 it has permissions under AdministrativeAccess policy and can do what ever it wants.  Thats a bit too loose so lets delete that by clicking  on the x.*
+> *Here we see that LambdaExecutionRole2 has been given a policy or set of permissions called AdministrativeAccess which allows that Role to do anything it wants on any resource it wants.  So if Serverless Producer has role LamndaExecutionRole2 it has permissions under AdministrativeAccess policy and can do what ever it wants.  Thats a bit too loose so lets delete that by clicking  on the x.*
 
 ### ServerlessProducer - LambdaExecutionRole2 role - AdministrativeAccess policy  
 
@@ -111,7 +111,7 @@ has permissions under “AdministrativeAccess” policy
 
 #
 
-> **transcript for slide 9.8**   *detach*
+> *detach*
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy  
 
@@ -121,7 +121,7 @@ has permissions under “AdministrativeAccess” policy
 
 #
 
-> **transcript for slide 9.9** *click on add inline policy which essentially means make a custom policy that you can edit later as you test it out.*  
+> *click on add inline policy which essentially means make a custom policy that you can edit later as you test it out.*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy  
 
@@ -131,7 +131,7 @@ has permissions under “AdministrativeAccess” policy
 
 #
 
-> **transcript for slide 9.10** *choose a service*
+> *choose a service*
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy  
 
@@ -141,7 +141,7 @@ has permissions under “AdministrativeAccess” policy
 
 #
 
-> **transcript for slide 9.11** *start typing dynamoDB and then click on DynamoDB*  
+> *start typing dynamoDB and then click on DynamoDB*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy. 
 
@@ -151,7 +151,7 @@ has permissions under “AdministrativeAccess” policy
 
 #
 
-> **transcript for slide 9.12** *click on Read and ...*  
+> *click on Read and ...*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy  
 
@@ -161,7 +161,7 @@ has permissions under “AdministrativeAccess” policy
 
 #
 
-> **transcript for slide 9.13** *click on Scan which is what we need ServerlessProducer in its LamndaExecutionRole2 role to do.*  
+> *click on Scan which is what we need ServerlessProducer in its LamndaExecutionRole2 role to do.*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy  
 
@@ -172,7 +172,7 @@ has permissions under “AdministrativeAccess” policy
 
 #
 
-> **transcript for slide 9.14** *click the checkbox next to “ANY in this account” for both index and table components of your DynamoDB*  
+> *click the checkbox next to “ANY in this account” for both index and table components of your DynamoDB*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy
 
@@ -182,7 +182,7 @@ has permissions under “AdministrativeAccess” policy
 
 #
 
-> **transcript for slide 9.15** *by doing that youre asking AWS to find your existing assets that these policies would apply to.   It finds your DynamoDB table and its index.  Done with DynamoDB and we think ServerlessProducer lambda has the access it needs.*  
+> *by doing that youre asking AWS to find your existing assets that these policies would apply to.   It finds your DynamoDB table and its index.  Done with DynamoDB and we think ServerlessProducer lambda has the access it needs.*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy
 
@@ -198,7 +198,7 @@ If AWS cannot find a resource and you don’t know the resource, you can click �
 
 #
 
-> **transcript for slide 9.16** *now lets do another service [pause] at the bottom here, ...*   
+> *now lets do another service [pause] at the bottom here, ...*   
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy
 
@@ -208,7 +208,7 @@ If AWS cannot find a resource and you don’t know the resource, you can click �
 
 #
 
-> **transcript for slide 9.17** *... type SQS and select SQS*  
+> *... type SQS and select SQS*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy
 
@@ -218,7 +218,7 @@ If AWS cannot find a resource and you don’t know the resource, you can click �
 
 #
 
-> **transcript for slide 9.18** *Same as before we will click on the actions that ServerlessProducer needs to perform on SQS  [pause] click on Read and Write*   
+> *Same as before we will click on the actions that ServerlessProducer needs to perform on SQS  [pause] click on Read and Write*   
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy
 
@@ -231,7 +231,7 @@ For example, ProducerAI
 
 #
 
-> **transcript for slide 9.19** *READ allows us to get the URL of the sqs queue [pause] and Write allows us to Send a message*  
+> *READ allows us to get the URL of the sqs queue [pause] and Write allows us to Send a message*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy
 
@@ -247,7 +247,7 @@ The lambda “ProduceAI” needs permissions to “GetQueueAttributes” and ”
 
 #
 
-> **transcript for slide 9.20** *as with DynamoDB click the check box for “Any in this account” to let AWS identify Resources THEN Click Review policy*   
+> *as with DynamoDB click the check box for “Any in this account” to let AWS identify Resources THEN Click Review policy*   
 
 ### ServerlessProducer - LambdaExecutionRole2 role - new policy
 
@@ -258,7 +258,7 @@ The lambda “ProduceAI” needs permissions to “GetQueueAttributes” and ”
 
 #
 
-> **transcript for slide 9.21** *name it and create*  
+> *name it and create*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - LambdaTighter policy
 
@@ -269,7 +269,7 @@ The lambda “ProduceAI” needs permissions to “GetQueueAttributes” and ”
 
 #
 
-> **transcript for slide 9.22** *if you want to edit or see the policy click on the arrow next to its name*  
+> *if you want to edit or see the policy click on the arrow next to its name*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - LambdaTighter policy
 
@@ -279,7 +279,7 @@ The lambda “ProduceAI” needs permissions to “GetQueueAttributes” and ”
 
 #
 
-> **transcript for slide 9.23**  *click edit policy*  
+> *click edit policy*  
 
 ### ServerlessProducer - LambdaExecutionRole2 role - LambdaTighter policy
 
@@ -289,7 +289,7 @@ The lambda “ProduceAI” needs permissions to “GetQueueAttributes” and ”
 
 #
 
-> **transcript for slide 9.24** *this page would let us edit via the same menu functions used earlier.  here I choose the JSON tab because its quicker to see what permissions you’ve given the role*   
+> *this page would let us edit via the same menu functions used earlier.  here I choose the JSON tab because its quicker to see what permissions you’ve given the role*   
 
 ### ServerlessProducer - LambdaExecutionRole2 role - LambdaTighter policy
 
@@ -300,7 +300,7 @@ Here you can edit with the menus used so far or directly in JSON format.
 
 #
 
-> **transcript for slide 9.25** *These 2 lines are superfluous*   
+> *These 2 lines are superfluous*   
 
 ### ServerlessProducer - LambdaExecutionRole2 role - LambdaTighter policy
 
@@ -310,7 +310,7 @@ These two lines just mean that the policy was produced using the menu driven met
 
 #
 
-> **transcript for slide 9.26** *here we see that ServerlessProducer acting in role of LamndaExecutionRole2 is allowed ...*   
+> *here we see that ServerlessProducer acting in role of LamndaExecutionRole2 is allowed ...*   
 
 ### ServerlessProducer - LambdaExecutionRole2 role - LambdaTighter policy
 
@@ -320,7 +320,7 @@ This policy will “Allow” …
 
 #
 
-> **transcript for slide 9.27** *... to do 4 actions ...*   
+> *... to do 4 actions ...*   
 
 ### ServerlessProducer - LambdaExecutionRole2 role - LambdaTighter policy
 
@@ -330,7 +330,7 @@ This policy will “Allow” …
 
 #
 
-> **transcript for slide 9.28** *... on 3 resources*   
+> *... on 3 resources*   
 
 ### ServerlessProducer - LambdaExecutionRole2 role - LambdaTighter policy
 
@@ -342,7 +342,7 @@ This policy will “Allow” …
 
 #
 
-> **transcript for slide 9.29** *lets see if that is enough or too much by returning to the lambda function*
+> *lets see if that is enough or too much by returning to the lambda function*
 
 ### ServerlessProducer - LambdaExecutionRole2 role - LambdaTighter policy
 
@@ -353,7 +353,7 @@ LmabdaExecutionRole2 now has a tighter IAM policy limiting it to 4 actions on 3 
 
 #
 
-> **transcript for slide 9.30** *and testing it out.  here mine succeeds but I had to hunt and peck to get the policies just tight enough to restrict ServerlessProducer to just the actions it needs.*   
+> *and testing it out.  here mine succeeds but I had to hunt and peck to get the policies just tight enough to restrict ServerlessProducer to just the actions it needs.*   
 
 ### ServerlessProducer - IAM policy - test it out!
 
@@ -363,7 +363,7 @@ Yay!
 
 #
 
-> **transcript for slide 9.31** *one note is that for your lambdas to contribute to moinotirng and logging, you need to give them  permission to write to cloudwatch and ...*  
+> *one note is that for your lambdas to contribute to moinotirng and logging, you need to give them  permission to write to cloudwatch and ...*  
 
 ### ServerlessProducer - IAM policy - monitoring & logging
 
@@ -373,7 +373,7 @@ Yay!
 
 #
 
-> **transcript for slide 9.32** *... permission to write to logs.*
+> *... permission to write to logs.*
 
 ### ServerlessProducer - IAM policy - monitoring & logging
 
@@ -383,7 +383,7 @@ Yay!
 
 #
 
-> **transcript for slide 9.33** *to review, when youre working with a cloud service provider, the architecture you design requires tool A to talk to tool B and tool B to change something about tool C.  Put another way, the infra ALLOWS tool A to talk with tool B and ALLOWS tool B to change something about tool C.  [pause].   You want to give A, B, and C permissions to do those things but nothing more.  That way if for some reason you are worried about behaviors of people, you know which doors you have left unlocked. 
+> *to review, when youre working with a cloud service provider, the architecture you design requires tool A to talk to tool B and tool B to change something about tool C.  Put another way, the infra ALLOWS tool A to talk with tool B and ALLOWS tool B to change something about tool C.  [pause].   You want to give A, B, and C permissions to do those things but nothing more.  That way if for some reason you are worried about behaviors of people, you know which doors you have left unlocked. 
 to do this start with the code then go to the IAM console and then test out in the Lamnda Console.  The only hair pul was related to AWS Comprehend. Anyone who has an answer please*
 
 ### Review - It is kinda fun
