@@ -8,8 +8,7 @@ Transcript & slides are below.  Please click this demo video to hear it with sou
 
 #
 
-> **transcript for slide 9.1** *hello everyone and thank you for watching THIS video on my final project which replicates project 4
-This has been a great project to toy around with different AWS languages and tools.  Now …*
+> Hello everyone and thank you for watching THIS video on my final project which replicates project 4. This has been a great project to toy around with different AWS languages and tools.  
 
 ### IAM roles and policy tightening  
 ### How to understand, do, and keep your hair  
@@ -27,7 +26,7 @@ fang —> 5minutetimer —> serverlessproducer —> producer —> producerai —
 
 #
 
-> **transcript for slide 9.2** *My infra is working from build to ... *
+> Now, my infra is working from build to ... 
 
 ### Working infra  
 
@@ -38,7 +37,7 @@ fang —> 5minutetimer —> serverlessproducer —> producer —> producerai —
 
 #
 
-> **transcript for slide 9.3** *... tear down with monitoring and logging and linting, but I needed to ensure that data is secure in transit and that IAM roles are as tight as possible.  this demo video is about the latter.   I would like to show you how I learned about IAM roles and policies and how to tighten those up so that the bits of my infra are given only permissions needed to do their jobs.  In my architecture ...*
+> ... tear down with monitoring and logging and linting, but I needed to ensure that data is secure in transit and that IAM roles are as tight as possible.  this demo video is about the latter.   I would like to show you how I learned about IAM roles and policies and how to tighten those up so that the bits of my infra are given only permissions needed to do their jobs.  In my architecture ...
 
 ### Working infra
 
