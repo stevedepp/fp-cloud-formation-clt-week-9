@@ -4,6 +4,10 @@
 
 Transcript & slides are below.  Please click this demo video to hear it with sound.   
 
+<video src="https://user-images.githubusercontent.com/38410965/111993516-18082000-8aed-11eb-882c-b870193c33aa.mp4" autoplay controls loop muted style="max-width: 730px;">
+</video>
+
+
 ![demo](https://user-images.githubusercontent.com/38410965/111993516-18082000-8aed-11eb-882c-b870193c33aa.mp4)
 
 #
