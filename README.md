@@ -2,13 +2,10 @@
 # demo video for week 9:  
 *IAM roles and policy tightening.  How to understand, do, and keep your hair.*     
 
-Transcript & slides are below.  Please click this demo video to hear it with sound.   
+Transcript & slides are below.  Please unmute this demo video to hear it with sound.  Resolution improves in full screen. 
 
 <video src="https://user-images.githubusercontent.com/38410965/111993516-18082000-8aed-11eb-882c-b870193c33aa.mp4" autoplay controls loop muted style="max-width: 730px;">
 </video>
-
-
-![demo](https://user-images.githubusercontent.com/38410965/111993516-18082000-8aed-11eb-882c-b870193c33aa.mp4)
 
 #
 
